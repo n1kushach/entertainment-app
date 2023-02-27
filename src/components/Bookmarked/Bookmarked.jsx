@@ -21,8 +21,7 @@ export const Bookmarked = () => {
       });
   }, []);
 
-  console.log(records)
-
+  console.log(records);
 
   const handleSearch = (event) => {
     setKeyword(event.target.value);
@@ -66,7 +65,7 @@ export const Bookmarked = () => {
         }
       >
         {records?.map((oneRecord, index) => {
-           
+          if (oneRecord.category == "Movie") {
             return (
               <RecommendedCard
                 key={index}
@@ -77,7 +76,7 @@ export const Bookmarked = () => {
                 title={oneRecord.title}
               />
             );
-          
+          }
         })}
       </div>
       <div>
@@ -102,6 +101,31 @@ export const Bookmarked = () => {
                 rating={item.rating}
               />
             );
+          })}
+        </div>
+      </div>
+      <div>
+        <h1
+          className={
+            searchMode ? "hidden" : "mt-6 text-[32px] text-pureWhite font-light"
+          }
+        >
+          Bookmarked TV Series
+        </h1>
+        <div className="grid grid-cols-4 gap-[40px] mt-12">
+          {records?.map((oneRecord, index) => {
+            if (oneRecord.category == "TV Series") {
+              return (
+                <RecommendedCard
+                  key={index}
+                  src={oneRecord.thumbnail.regular.medium}
+                  year={oneRecord.year}
+                  category={oneRecord.category}
+                  rating={oneRecord.rating}
+                  title={oneRecord.title}
+                />
+              );
+            }
           })}
         </div>
       </div>
