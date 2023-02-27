@@ -21,7 +21,6 @@ export const Movies = () => {
       });
   }, []);
 
-  console.log(records);
 
   const handleSearch = (event) => {
     setKeyword(event.target.value);
@@ -80,7 +79,7 @@ export const Movies = () => {
         })}
       </div>
       <div>
-        <h1 className="mt-6">
+      <h1 className={searchMode ? "mt-6" : "hidden"}>
           Found {searchRecords?.length} results for "{keyword}"
         </h1>
         <div

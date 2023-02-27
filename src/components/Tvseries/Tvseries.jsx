@@ -77,8 +77,9 @@ export const Tvseries = () => {
         })}
       </div>
       <div>
-        <h1 className="mt-6">Found {searchRecords?.length} results for "{keyword}"</h1>
-        <div
+      <h1 className={searchMode ? "mt-6" : "hidden"}>
+          Found {searchRecords?.length} results for "{keyword}"
+        </h1>        <div
           className={
             searchMode
               ? "recommendedGrid grid grid-cols-4 gap-[40px] mt-16"
