@@ -11,6 +11,7 @@ export const Home = () => {
   const [records, setRecords] = useState();
   const [searchMode, setSearchMode] = useState(false);
   const [searchRecords, setSearchRecords] = useState();
+  const [keyword, setKeyword] = useState("")
 
   useEffect(() => {
     fetch("http://localhost:5173/public/data.json")
@@ -21,6 +22,7 @@ export const Home = () => {
   }, []);
 
   const handleSearch = (event) => {
+    setKeyword(event.target.value)
     let query = event.target.value;
     setSearchMode(true);
     let updated = records.filter((item) => {
@@ -47,30 +49,37 @@ export const Home = () => {
           />
         </div>
       </div>
-      <div className={searchMode ? "recommendedGrid grid grid-cols-4 gap-[40px] mt-16" : "hidden"}>
-        {searchRecords?.map((item, index) => {
-          return (
-            <RecommendedCard
-              key={index}
-              src={item.thumbnail.regular.small}
-              title={item.title}
-              year={item.year}
-              category={item.category}
-              rating={item.rating}
-            />
-          );
-        })}
-        
+      <div className={searchMode ? "" : "hidden"}>
+        <h1 className="mt-6 text-pureWhite">
+          Found {searchRecords?.length} results for "{keyword}"
+        </h1>
+        <div
+          className={
+            searchMode
+              ? "recommendedGrid grid grid-cols-4 gap-[40px] mt-16"
+              : "hidden"
+          }
+        >
+          {searchRecords?.map((item, index) => {
+            return (
+              <RecommendedCard
+                key={index}
+                src={item.thumbnail.regular.small}
+                title={item.title}
+                year={item.year}
+                category={item.category}
+                rating={item.rating}
+              />
+            );
+          })}
+        </div>
       </div>
       <div className={searchMode ? "hidden" : null}>
         <div>
           <h1 className="mt-6 text-[32px] text-pureWhite font-light">
             Trending
           </h1>
-          <Swiper
-            spaceBetween={50}
-            slidesPerView={3}
-          >
+          <Swiper spaceBetween={50} slidesPerView={3}>
             {records?.map((oneRecord, index) => {
               if (oneRecord.isTrending == true) {
                 return (
