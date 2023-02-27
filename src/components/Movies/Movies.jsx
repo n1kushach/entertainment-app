@@ -12,9 +12,13 @@ export const Movies = () => {
     fetch("http://localhost:5173/public/data.json")
       .then((response) => response.json())
       .then((data) => {
-        setRecords(data);
+        setRecords(data.filter((oneData) => {
+          return oneData.category == "Movie";
+        }));
       });
   }, []);
+
+  console.log(records)
 
   const handleSearch = (event) => {
     let query = event.target.value;
